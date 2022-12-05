@@ -51,4 +51,19 @@ ORDER BY emp_no, to_date DESC;
 SELECT * from unique_titles
 
 
+--Write another query in the Employee_Database_challenge.sql file to retrieve the number of employees by their most recent job title who are about to retire.
+--First, retrieve the number of titles from the Unique Titles table.
+--Then, create a Retiring Titles table to hold the required information.
+--Group the table by title, then sort the count column in descending order.
 
+SELECT count(title),
+title
+
+into retiring_titles
+from unique_titles
+group by title
+order by count desc
+
+---Export the Retiring Titles table as retiring_titles.csv and save it to your Data folder in the Pewlett-Hackard-Analysis folder.
+--Before you export your table, confirm that it looks like this image:
+select * from retiring_titles
