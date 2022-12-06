@@ -67,3 +67,40 @@ order by count desc
 ---Export the Retiring Titles table as retiring_titles.csv and save it to your Data folder in the Pewlett-Hackard-Analysis folder.
 --Before you export your table, confirm that it looks like this image:
 select * from retiring_titles
+
+--In the Employee_Database_challenge.sql file, write a query to create a Mentorship Eligibility table that holds the employees who are eligible to participate in a mentorship program.
+
+--Retrieve the emp_no, first_name, last_name, and birth_date columns from the Employees table.
+---Retrieve the from_date and to_date columns from the Department Employee table.
+--Retrieve the title column from the Titles table.
+-- Use a DISTINCT ON statement to retrieve the first occurrence of the employee number for each set of rows defined by the ON () clause.
+-- Create a new table using the INTO clause.
+-- Join the Employees and the Department Employee tables on the primary key.
+-- Join the Employees and the Titles tables on the primary key.
+-- Filter the data on the to_date column to all the current employees, then filter the data on the birth_date columns to get all the employees whose birth dates are between January 1, 1965 and December 31, 1965.
+-- Order the table by the employee number.
+
+
+SELECT DISTINCT ON (emp_no)
+	e.emp_no,
+	e.first_name,
+	e.last_name,
+	e.birth_date,
+	de.from_date,
+	de.to_date,
+	ti.title
+	
+INTO mentorship_eligibility
+	
+FROM employees e
+LEFT JOIN dept_emp de on (e.emp_no = de.emp_no)
+LEFT JOIN titles ti on (e.emp_no = ti.emp_no)
+
+WHERE de.to_date = '9999-01-01' and e.birth_date  >= '1965-01-01' and e.birth_date <= '1965-12-31'
+
+ORDER BY e.emp_no
+
+-- Export the Mentorship Eligibility table as mentorship_eligibilty.csv and save it to your Data folder in the Pewlett-Hackard-Analysis folder.
+-- Before you export your table, confirm that it looks like this image:
+
+select * from mentorship_eligibility
